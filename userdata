@@ -1,0 +1,53 @@
+TMP=/tmp/oauth
+
+###
+## Install Go
+###
+
+sudo yum install wget -y
+wget https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz
+sudo tar -xzf go1.6.linux-amd64.tar.gz -C /usr/local
+rm go1.4.2.linux-amd64.tar.gz
+
+export GOROOT=/usr/local/go
+export GOPATH=/home/ec2-user/oauth-go
+export PATH=$PATH:$GOROOT/bin
+
+###
+## Run dummy, trivial web server
+###
+
+cd /home/ec2-user/oauth-go
+go install jquery
+/home/ec2-user/oauth-go/bin/jquery
+
+##
+# Install nginx
+##
+
+nginxuserid=cat
+nginxpassword=cat
+GITHUBFOLDER=.
+
+sudo yum -y install epel-release &> $TMP-2100
+sudo yum -y install nginx httpd-tools &> $TMP-2200
+sudo htpasswd -cb /etc/nginx/htpasswd.users ${nginxuserid} ${nginxpassword} &> $TMP-2300
+
+sudo cp ${GITHUBFOLDER}/nginx.conf /etc/nginx &> $TMP-2400
+sudo cp ${GITHUBFOLDER}/kibana.conf /etc/nginx/conf.d &> $TMP-2500
+
+# Allow time for kibana.conf to be saved.
+sleep 15 &> $TMP-2550
+
+sudo service nginx start &> $TMP-2600
+
+##
+# Get oauth2_proxy binary
+##
+
+cd /home/ec2-user
+wget https://github.com/bitly/oauth2_proxy/releases/download/v2.1/oauth2_proxy-2.1.linux-amd64.go1.6.tar.gz
+tar -xvzf oauth2_proxy-2.1.linux-amd64.go1.6.tar.gz
+sudo cp oauth2_proxy /usr/bin/
+
+

@@ -1,0 +1,12 @@
+~/oauth-go/bin/oauth2_proxy \
+	-client-id=$1 \
+	-client-secret=$2 \
+	-provider=github \
+	-email-domain=* \
+	-upstream=http://35.164.85.16:8888 \
+	-cookie-secret=secretsecret \
+	-login-url=https://github.com/login/oauth/authorize \
+	-github-org=yourcompany \
+	-cookie-domain=your.company.com \
+	-cookie-secure=false \
+	-redirect-url=http://35.164.85.16:8888/callmebacktomorrow
