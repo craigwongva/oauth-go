@@ -1,13 +1,17 @@
 RUN THE TRIVIAL GO WEB SERVER
-1. Get oauth2_proxy
+
+1. From ssh session one, run the trivial Go server. It's listening on :8888.
+clientid=<your GitHub app client id>
+clientsecret=<your GitHub app client secret>
+cd ~/oauth-go
+./bin/jquery $clientid $clientsecret
+
+RUN OAUTH2_PROXY
+
+2. Get oauth2_proxy
 cd ~/oauth-go
 go get github.com/bitly/oauth2_proxy
 
-2. From ssh session one, run the trivial Go server. It's listening on :8888.
-cd ~/oauth-go
-./bin/jquery
-
-RUN OAUTH2_PROXY
 3. Make sure the oauth2-proxy will forward the correct callback_uri.
    a. Force oauthproxy.go line 645 to "http://12.13.14.15:8888/callmebacktomorrow" 
    b. go install github.com/bitly/oauth2_proxy
