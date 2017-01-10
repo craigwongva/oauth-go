@@ -14,7 +14,7 @@ func callmeback(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, "Hi there, I am 'callmeback'.", hostname)
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func callmebacktomorrow(w http.ResponseWriter, r *http.Request) {
     code := r.URL.Query().Get("code")
     fmt.Fprintf(w, "Hi there, I got a code: %s!", code)
 
@@ -29,26 +29,30 @@ func handler(w http.ResponseWriter, r *http.Request) {
       ioutil.ReadAll(resp.Body)
     fmt.Fprintf(w, string(body))
     a := string(body)
-    	
 
+    var m map[string]string
+    var ss []string
 
-var m map[string]string
-var ss []string
-
-//s := "A=B&C=D&E=F"
-ss = strings.Split(a, "&")
-m = make(map[string]string)
-for _, pair := range ss {
-    z := strings.Split(pair, "=")
-    m[z[0]] = z[1]
-}
-fmt.Println("Rain in Williamsburg")
+    //s := "A=B&C=D&E=F"
+    ss = strings.Split(a, "&")
+    m = make(map[string]string)
+    for _, pair := range ss {
+        z := strings.Split(pair, "=")
+        m[z[0]] = z[1]
+    }
+fmt.Println("Rain in Williamsburg tomorrow")
 fmt.Println(m)
-fmt.Println("Snow in Williamsburg")
+fmt.Println(m["access_token"])
+fmt.Println("Snow in Williamsburg tomorrow")
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    code := r.URL.Query().Get("code")
+    fmt.Fprintf(w, "Hi there, I got a code: %s!", code)
 }
 
 func main() {
     http.HandleFunc("/", handler)
-    http.HandleFunc("/callmeback", callmeback)
+    http.HandleFunc("/callmebacktomorrow", callmebacktomorrow)
     http.ListenAndServe(":8888", nil)
 }
