@@ -44,9 +44,8 @@ fmt.Println("Rain in Williamsburg tomorrow")
 fmt.Println(m)
 fmt.Println(m["access_token"])
 fmt.Println("Snow in Williamsburg tomorrow")
-//https://api.github.com/user?access_token=6c7de659eb78b3d5f539559b7f7d40cd5395b025
 
-    resp1, err1 := http.Get("https://api.github.com/user?access_token=6c7de659eb78b3d5f539559b7f7d40cd5395b025")
+    resp1, err1 := http.Get("https://api.github.com/user?access_token=" + m["access_token"])
     if err1 != nil {
         fmt.Println("Something went wrong3 ")
         return
