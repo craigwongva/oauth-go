@@ -27,4 +27,12 @@ RUN TEST TO SEE GITHUB AUTHENTICATION IN ACTION
 5. From a browser, start the authentication sequence.
 http://12.13.14.15:8887
 
+BIBLIOGRAPHY
+http://developers.canal-plus.com/blog/install-nginx-reverse-proxy-with-github-oauth2/
+https://github.com/bitly/oauth2_proxy
+https://developer.github.com/v3/oauth/
+https://golang.org/pkg/net/http/
+https://golang.org/pkg/net/url/
+http://stackoverflow.com/questions/35663892/parse-string-into-map-golang
+https://gobyexample.com/command-line-arguments
 
