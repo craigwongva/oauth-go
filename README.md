@@ -1,9 +1,9 @@
-### Define your application to GitHub
+### Defining your application to GitHub
 1\. Sign in to GitHub and go to Settings, Oauth Applications.
 
 2\. For "Authorization Callback URL", specify "http://12.13.14.15:8888/callmebacktomorrow" (this must match oauthproxy.go line 645 as described below).
 
-### Run your application (a trivial Go web server)
+### Running your application (a trivial Go web server)
 
 3\. From ssh session one, run the trivial Go server. It's listening on :8888.
 ```
@@ -13,7 +13,7 @@ cd ~/oauth-go
 ./bin/jquery $clientid $clientsecret
 ```
 
-### Run oauth2_proxy
+### Running oauth2_proxy
 
 4\. Get oauth2_proxy
 ```
@@ -33,7 +33,7 @@ clientsecret=<your GitHub app client secret>
 ./cli-oauth2_proxy $clientid $clientsecret
 ```
 
-### Run test to see Github authentication in action
+### Running the test to see Github authentication in action
 7\. From a browser, start the authentication sequence.
 ```
 http://12.13.14.15:8887
@@ -42,7 +42,9 @@ http://12.13.14.15:8887
 ### What's happening
 nginx is listening on :8887, authenticates (TODO: authentication is redundant, actually superfluous, so remove this), forwards to oauth2_proxy, which forwards to GitHub, which returns a code to your app via the callback URL, your app sends the code back to GitHub and receives an access_token (TODO: where?), your app uses the access_token to make a GitHub API call.
 
-If your app was only using GitHub for authentication and cared nothing about GitHub itself, then your app would then manage your application's authorizations (TODO: find AWS federation login S3 example).
+If your app was only using GitHub for authentication and cared nothing about GitHub itself, then your app would then manage your application's authorizations 
+
+TODO: Incorporate something equivalent to the [AWS federation login S3 example](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html).
 
 ### Bibliography
 * http://developers.canal-plus.com/blog/install-nginx-reverse-proxy-with-github-oauth2/
